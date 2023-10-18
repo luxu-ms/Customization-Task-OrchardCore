@@ -39,25 +39,6 @@ if($RunAsUser -ne "true") {
 } else {
     Write-Output "Running command as user: $Command"
 
-    # Run the command as user, it will write the command to a powershell script and start a shedule task to run this script when the user login devbox
-    $REMOVE_LOCKFILE_LAST_LINE = @'
-Remove-Item -Path "$($CustomizationScriptsDir)\$($LockFile)" -Force
-'@
-
-    # This function will remove the last line of the file if it is the same as $REMOVE_LOCKFILE_LAST_LINE
-    function removeLastLinewithRemoveItem {
-        param(
-            [string]$Path
-        )
-    
-        $lines = (Get-Content -Path $Path).TrimEnd()
-        $lastLine = $lines[$lines.Length - 1]
-        if($lastLine.TrimEnd() -eq $REMOVE_LOCKFILE_LAST_LINE.TrimEnd()){
-            $lines = $lines[0..($lines.Length - 2)]
-            $lines | Set-Content -Path $Path
-        }
-    }
-
     # This function will setup the scheduled tasks to run the script when the user login devbox
     function SetupScheduledTasks {
         param(
@@ -126,9 +107,7 @@ Remove-Item -Path "$($CustomizationScriptsDir)\$($LockFile)" -Force
     $cleanupfullPath = "$($CustomizationScriptsDir)\$($CleanupScript)"
 
     if(![string]::IsNullOrEmpty($Command)){
-        removeLastLinewithRemoveItem($RunAsUserScriptPath)
         Add-Content -Path $RunAsUserScriptPath -Value $Command
-        Add-Content -Path $RunAsUserScriptPath -Value $REMOVE_LOCKFILE_LAST_LINE
     }
 
     Copy-Item "./$($CleanupScript)" -Destination $CustomizationScriptsDir -Force

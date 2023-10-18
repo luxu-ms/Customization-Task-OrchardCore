@@ -8,7 +8,10 @@ setupTasks:
       command: |
         New-Item -ItemType Directory -Path "C:\temp" -Force;
         Set-Location "C:\temp";
-        git clone https://github.com/OrchardCMS/OrchardCore.git
+        git clone https://github.com/OrchardCMS/OrchardCore.git;
+        Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web";
+        dotnet build --framework net7.0
+
   - task: powershell
     inputs:
       command: |

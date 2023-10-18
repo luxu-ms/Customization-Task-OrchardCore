@@ -13,5 +13,6 @@ setupTasks:
     inputs:
       command: |
         Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web"
+        Write-host "Please wait several minutes for the first time to build the project. Then visist http://localhost:5000."
         dotnet run --framework net7.0
       runAsUser: true

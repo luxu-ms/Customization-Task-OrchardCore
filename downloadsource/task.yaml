@@ -1,0 +1,2 @@
+name: download-source
+command: .\main.ps1

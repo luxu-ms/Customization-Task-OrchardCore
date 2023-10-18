@@ -1,0 +1,20 @@
+name: devbox-customization
+image: MicrosoftVisualStudio_visualstudioplustools_vs-2022-ent-general-win11-m365-gen2
+hostInformation: general_i_8c32gb256ssd_v2
+supportsHibernation: true
+setupTasks:
+  - task: powershell
+    inputs:
+      command: |
+        $sourceTempPath = "C:\temp"
+        if(!(Test-Path $sourceTempPath)) {
+           New-Item -ItemType Directory -Path $sourceTempPath
+        }
+        Set-Location $sourceTempPath
+        git clone https://github.com/OrchardCMS/OrchardCore.git
+  - task: powershell
+    inputs:
+      command: |
+        Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web"
+        dotnet run --framework net7.0
+      runAsUser: true

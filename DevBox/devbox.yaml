@@ -6,11 +6,8 @@ setupTasks:
   - task: powershell
     inputs:
       command: |
-        $sourceTempPath = "C:\temp"
-        if(!(Test-Path $sourceTempPath)) {
-           New-Item -ItemType Directory -Path $sourceTempPath
-        }
-        Set-Location $sourceTempPath
+        New-Item -ItemType Directory -Path "C:\temp" -Force;
+        Set-Location "C:\temp";
         git clone https://github.com/OrchardCMS/OrchardCore.git
   - task: powershell
     inputs:

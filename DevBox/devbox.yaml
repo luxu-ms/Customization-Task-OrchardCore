@@ -6,21 +6,21 @@ setupTasks:
   - task: powershell
     inputs:
       command: |
+        # Clone source code
         New-Item -ItemType Directory -Path "C:\temp" -Force;
         Set-Location "C:\temp";
         git clone https://github.com/OrchardCMS/OrchardCore.git;
         Set-Location "C:\temp\OrchardCore";
         git checkout tags/v1.7.2;
-        Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web";
-        dotnet build --framework net7.0
+        
+        # Cache
+        Set-Location "C:\temp\OrchardCore";
+        dotnet build OrchardCore.sln -f net7.0;
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" OrchardCore.sln /PopulateSolutionCache /LocalCache /Build | Wait-Process
 
   - task: powershell
     inputs:
       command: |
-        # Cache
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" OrchardCore.sln /PopulateSolutionCache /LocalCache /Build | Wait-Process
-
         # Open the Solution
-        Set-Location "C:\temp\OrchardCore"
         & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" OrchardCore.sln
       runAsUser: true

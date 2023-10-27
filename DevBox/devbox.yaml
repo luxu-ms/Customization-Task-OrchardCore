@@ -9,13 +9,14 @@ setupTasks:
         New-Item -ItemType Directory -Path "C:\temp" -Force;
         Set-Location "C:\temp";
         git clone https://github.com/OrchardCMS/OrchardCore.git;
+        winget install --id=Microsoft.DotNet.SDK.Preview -e --silent --accept-package-agreements --accept-source-agreements;
         Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web";
-        dotnet build --framework net7.0
+        dotnet build
 
   - task: powershell
     inputs:
       command: |
         Set-Location "C:\temp\OrchardCore\src\OrchardCore.Cms.Web"
         Write-host "Please wait several minutes for the first time to build the project. Then visist http://localhost:5000."
-        dotnet run --framework net7.0
+        dotnet run --framework net8.0
       runAsUser: true

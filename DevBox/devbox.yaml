@@ -17,10 +17,11 @@ setupTasks:
     inputs:
       command: |
         # Build and Cache
-        Set-Location "C:\temp\OrchardCore";
-        dotnet build OrchardCore.sln -f net7.0;
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" OrchardCore.sln /PopulateSolutionCache /LocalCache /Build | Wait-Process
+        Set-Location "C:\temp\OrchardCore"
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" OrchardCore.sln /PopulateSolutionCache /LocalCache /Build | Wait-Process
 
         # Open the Solution
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" OrchardCore.sln
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" OrchardCore.sln
+
+        Read-Host -Prompt "Press Enter to exit"
       runAsUser: true

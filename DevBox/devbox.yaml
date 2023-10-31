@@ -22,7 +22,8 @@ setupTasks:
         Set-Location "C:\temp\OrchardCore"
 
         Write-Host "Activating VS..."
-        $vsProductKey="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" # replace with your own key
+        ## replace with your own key
+        $vsProductKey="'XXXXX-XXXXX-XXXXX-XXXXX-XXXXX'" 
         $storePidCommand="'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\StorePID.exe'"
         & $storePidCommand $vsProductKey 09660 # activate VS, use 09662 if vs2022 professional
 

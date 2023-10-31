@@ -18,10 +18,11 @@ setupTasks:
       command: |
         # Build and Cache
         Set-Location "C:\temp\OrchardCore"
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" OrchardCore.sln /PopulateSolutionCache /LocalCache /Build | Wait-Process
+        $vsProductKey = "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX" # replace with your own key
+        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\StorePID.exe" $vsProductKey 09660 # activate VS, use 09662 if vs2022 professional
+        $devenvCommand="C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe"
+        & $devenvCommand OrchardCore.sln /PopulateSolutionCache /LocalCache /Build
 
         # Open the Solution
-        & "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" OrchardCore.sln
-
-        Read-Host -Prompt "Press Enter to exit"
+        & $devenvCommand OrchardCore.sln
       runAsUser: true

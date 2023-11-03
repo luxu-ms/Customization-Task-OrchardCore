@@ -31,5 +31,6 @@ setupTasks:
         # Open the Solution
         Write-Host "Opening OrchardCore.sln..."
         Set-Location "C:\temp\OrchardCore"
+        $devenvCommand="'C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com'"
         & $devenvCommand OrchardCore.sln
       runAsUser: true

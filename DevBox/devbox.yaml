@@ -11,7 +11,6 @@ setupTasks:
         Set-Location "C:\temp";
         git clone https://github.com/OrchardCMS/OrchardCore.git;
         Set-Location "C:\temp\OrchardCore";
-        git checkout tags/v1.7.2;
 
         # Build and Cache
         Write-Host "Starting to build OrchardCore.sln...";
